@@ -28,7 +28,22 @@ class CreateLinkAPIView(APIView):
         responses={
             201: openapi.Response('Link creado', LinkSerializer),
             400: 'Entrada inválida'
-        }
+        },
+        manual_parameters = [
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Api-Key <key>",
+                type=openapi.TYPE_STRING
+            ),
+            openapi.Parameter(
+                'Content-Type',
+                openapi.IN_HEADER,
+                description="Tipo de contenido",
+                type=openapi.TYPE_STRING,
+                default='application/json'
+            ),
+        ]
     )
     def post(self, request):
         serializer = LinkSerializer(data=request.data)
